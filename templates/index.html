@@ -3,9 +3,44 @@
 <head>
     <title>Mumbai House Price Predictor</title>
 </head>
+
 <body>
 
     <h1>Mumbai House Price Predictor</h1>
+
+    <form>
+
+        <label>Area (sq ft)</label>
+        <input type="number" name="area">
+
+        <br><br>
+
+        <label>BHK</label>
+        <input type="number" name="bhk">
+
+        <br><br>
+
+        <label>Bathrooms</label>
+        <input type="number" name="bathroom">
+
+        <br><br>
+
+        <label>Locality</label>
+
+        <select name="locality">
+            <option>Thane</option>
+            <option>Andheri</option>
+            <option>Powai</option>
+            <option>Dombivli</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">
+            Predict Price
+        </button>
+
+    </form>
 
 </body>
 </html>
