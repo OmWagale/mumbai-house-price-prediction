@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Mumbai House Price Predictor</title>
 </head>
@@ -8,7 +9,7 @@
 
     <h1>Mumbai House Price Predictor</h1>
 
-    <form>
+    <form action="/predict" method="POST">
 
         <label>Area (sq ft)</label>
         <input type="number" name="area">
@@ -42,5 +43,8 @@
 
     </form>
 
+    <h2>{{ prediction_text }}</h2>
+
 </body>
+
 </html>
