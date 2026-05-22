@@ -12,38 +12,30 @@
     <form action="/predict" method="POST">
 
         <label>Area (sq ft)</label>
-        <input type="number" name="area">
+        <input type="number" name="area" required>
 
         <br><br>
 
         <label>BHK</label>
-        <input type="number" name="bhk">
+        <input type="number" name="bhk" required>
 
         <br><br>
 
         <label>Bathrooms</label>
-        <input type="number" name="bathroom">
+        <input type="number" name="bathroom" required>
 
         <br><br>
 
         <label>Locality</label>
-        <select name="locality">
-
-    <option>Thane</option>
-    <option>Andheri</option>
-    <option>Powai</option>
-    <option>Worli</option>
-    <option>Dombivli</option>
-    <option>Airoli</option>
-    <option>Virar</option>
-
-</select>
 
         <select name="locality">
-            <option>Thane</option>
-            <option>Andheri</option>
-            <option>Powai</option>
-            <option>Dombivli</option>
+
+            {% for loc in localities %}
+                <option value="{{ loc }}">
+                    {{ loc }}
+                </option>
+            {% endfor %}
+
         </select>
 
         <br><br>
