@@ -20,54 +20,56 @@ for col in columns:
 localities.sort()
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
 
+    # Default values
+    prediction_text = ""
+    area = ""
+    bhk = ""
+    bathroom = ""
+    selected_locality = ""
+
+    if request.method == 'POST':
+
+        # Get form data
+        area = request.form['area']
+        bhk = request.form['bhk']
+        bathroom = request.form['bathroom']
+        selected_locality = request.form['locality']
+
+        # Create dataframe
+        input_data = pd.DataFrame(columns=columns)
+
+        input_data.loc[0] = 0
+
+        # Fill features
+        input_data['area'] = float(area)
+        input_data['bedroom_num'] = int(bhk)
+        input_data['bathroom_num'] = int(bathroom)
+
+        # Locality encoding
+        locality_column = 'locality_' + selected_locality
+
+        if locality_column in input_data.columns:
+            input_data[locality_column] = 1
+
+        # Prediction
+        prediction = model.predict(input_data)[0]
+
+        # Convert to crore
+        prediction_cr = round(prediction / 10000000, 2)
+
+        prediction_text = f"Estimated Price: ₹ {prediction_cr} Cr"
+
     return render_template(
         'index.html',
-        localities=localities
-    )
-
-
-@app.route('/predict', methods=['POST'])
-def predict():
-
-    # Get form data
-    area = request.form['area']
-    bhk = request.form['bhk']
-    bathroom = request.form['bathroom']
-    locality = request.form['locality']
-
-    # Create dataframe
-    input_data = pd.DataFrame(columns=columns)
-
-    input_data.loc[0] = 0
-
-    # Fill features
-    input_data['area'] = float(area)
-    input_data['bedroom_num'] = int(bhk)
-    input_data['bathroom_num'] = int(bathroom)
-
-    # Handle locality
-    locality_column = 'locality_' + locality
-
-    if locality_column in input_data.columns:
-        input_data[locality_column] = 1
-
-    # Predict
-    prediction = model.predict(input_data)[0]
-
-    # Convert to crore
-    prediction_cr = round(prediction / 10000000, 2)
-
-    return render_template(
-        'index.html',
-        prediction_text=f"Estimated Price: ₹ {prediction_cr} Cr",
+        prediction_text=prediction_text,
         localities=localities,
         area=area,
         bhk=bhk,
         bathroom=bathroom,
-        selected_locality=locality
+        selected_locality=selected_locality
     )
 
 
