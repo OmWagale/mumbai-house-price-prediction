@@ -4,7 +4,7 @@ import pandas as pd
 
 app = Flask(__name__)
 
-# Load trained model
+# Load model
 model = pickle.load(open('model/house_price_model.pkl', 'rb'))
 
 # Load columns
@@ -33,21 +33,20 @@ def home():
 def predict():
 
     # Get form data
-    area = float(request.form['area'])
-    bhk = int(request.form['bhk'])
-    bathroom = int(request.form['bathroom'])
+    area = request.form['area']
+    bhk = request.form['bhk']
+    bathroom = request.form['bathroom']
     locality = request.form['locality']
 
-    # Create dataframe with all columns
+    # Create dataframe
     input_data = pd.DataFrame(columns=columns)
 
-    # Fill all values with 0
     input_data.loc[0] = 0
 
-    # Add user inputs
-    input_data['area'] = area
-    input_data['bedroom_num'] = bhk
-    input_data['bathroom_num'] = bathroom
+    # Fill features
+    input_data['area'] = float(area)
+    input_data['bedroom_num'] = int(bhk)
+    input_data['bathroom_num'] = int(bathroom)
 
     # Handle locality
     locality_column = 'locality_' + locality
@@ -55,16 +54,20 @@ def predict():
     if locality_column in input_data.columns:
         input_data[locality_column] = 1
 
-    # Predict price
+    # Predict
     prediction = model.predict(input_data)[0]
 
-    # Convert to Crores
+    # Convert to crore
     prediction_cr = round(prediction / 10000000, 2)
 
     return render_template(
         'index.html',
         prediction_text=f"Estimated Price: ₹ {prediction_cr} Cr",
-        localities=localities
+        localities=localities,
+        area=area,
+        bhk=bhk,
+        bathroom=bathroom,
+        selected_locality=locality
     )
 
 

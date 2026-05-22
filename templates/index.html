@@ -12,17 +12,32 @@
     <form action="/predict" method="POST">
 
         <label>Area (sq ft)</label>
-        <input type="number" name="area" required>
+        <input 
+            type="number"
+            name="area"
+            value="{{ area if area else '' }}"
+            required
+        >
 
         <br><br>
 
         <label>BHK</label>
-        <input type="number" name="bhk" required>
+        <input 
+            type="number"
+            name="bhk"
+            value="{{ bhk if bhk else '' }}"
+            required
+        >
 
         <br><br>
 
         <label>Bathrooms</label>
-        <input type="number" name="bathroom" required>
+        <input 
+            type="number"
+            name="bathroom"
+            value="{{ bathroom if bathroom else '' }}"
+            required
+        >
 
         <br><br>
 
@@ -31,9 +46,16 @@
         <select name="locality">
 
             {% for loc in localities %}
-                <option value="{{ loc }}">
+
+                <option 
+                    value="{{ loc }}"
+                    {% if loc == selected_locality %}
+                        selected
+                    {% endif %}
+                >
                     {{ loc }}
                 </option>
+
             {% endfor %}
 
         </select>
@@ -42,6 +64,10 @@
 
         <button type="submit">
             Predict Price
+        </button>
+
+        <button type="reset">
+            Reset
         </button>
 
     </form>
