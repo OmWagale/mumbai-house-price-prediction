@@ -8,75 +8,339 @@
 
     <title>Mumbai House Price Predictor</title>
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
     <style>
 
-        body{
+        *{
             margin:0;
             padding:0;
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            background:
+            linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
+            url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1920&auto=format&fit=crop');
+
+            background-size:cover;
+            background-position:center;
+            padding:30px;
+        }
+
+        .main-container{
+            width:95%;
+            max-width:1400px;
+            display:flex;
+            border-radius:30px;
+            overflow:hidden;
+            backdrop-filter:blur(10px);
+            box-shadow:0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        /* LEFT SECTION */
+
+        .left-panel{
+            flex:1;
+            padding:70px;
+            background:linear-gradient(
+                135deg,
+                rgba(255,255,255,0.45),
+                rgba(255,255,255,0.15)
+            );
+
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+        }
+
+        .left-panel h1{
+            font-size:65px;
+            line-height:1.1;
+            color:#111827;
+            margin-bottom:20px;
+        }
+
+        .left-panel h1 span{
+            background:linear-gradient(90deg,#4f46e5,#9333ea);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+
+        .left-panel p{
+            font-size:20px;
+            color:#374151;
+            line-height:1.8;
+            margin-bottom:40px;
+            max-width:600px;
+        }
+
+        .feature-box{
+            width:420px;
+            background:rgba(255,255,255,0.5);
+            padding:20px;
+            border-radius:20px;
+            display:flex;
+            align-items:center;
+            gap:18px;
+            margin-bottom:20px;
+            transition:0.3s;
+        }
+
+        .feature-box:hover{
+            transform:translateX(10px);
+            background:white;
+        }
+
+        .feature-icon{
+            width:60px;
+            height:60px;
+            border-radius:50%;
+            background:linear-gradient(135deg,#6366f1,#9333ea);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            color:white;
+            font-size:22px;
+        }
+
+        .feature-text h3{
+            color:#111827;
+            margin-bottom:5px;
+        }
+
+        .feature-text p{
+            margin:0;
+            font-size:14px;
+            color:#4b5563;
+            line-height:1.6;
+        }
+
+        /* RIGHT PANEL */
+
+        .right-panel{
+            width:48%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:40px;
         }
 
         .container{
-            width: 400px;
-            margin: 50px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+            width:100%;
+            max-width:650px;
+
+            background:rgba(255,255,255,0.78);
+            backdrop-filter:blur(15px);
+
+            padding:50px;
+            border-radius:30px;
+
+            box-shadow:0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .top-icon{
+            width:90px;
+            height:90px;
+            border-radius:50%;
+            margin:auto;
+            margin-bottom:25px;
+
+            background:linear-gradient(135deg,#6366f1,#9333ea);
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            color:white;
+            font-size:35px;
+
+            box-shadow:0 10px 25px rgba(99,102,241,0.4);
         }
 
         h1{
             text-align:center;
-            color:#333;
-            margin-bottom:30px;
+            color:#111827;
+            margin-bottom:10px;
+            font-size:40px;
+        }
+
+        .subtitle{
+            text-align:center;
+            color:#6b7280;
+            margin-bottom:35px;
+        }
+
+        .input-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:20px;
+        }
+
+        .input-group{
+            margin-bottom:20px;
         }
 
         label{
-            font-weight:bold;
-            color:#444;
+            display:block;
+            margin-bottom:10px;
+            font-weight:600;
+            color:#111827;
+        }
+
+        .input-wrapper{
+            position:relative;
+        }
+
+        .input-wrapper i{
+            position:absolute;
+            left:18px;
+            top:50%;
+            transform:translateY(-50%);
+            color:#6366f1;
+            font-size:18px;
         }
 
         input, select{
             width:100%;
-            padding:12px;
-            margin-top:8px;
-            margin-bottom:20px;
-            border-radius:8px;
-            border:1px solid #ccc;
+            padding:16px 16px 16px 50px;
+
+            border-radius:14px;
+            border:2px solid transparent;
+
+            background:#f9fafb;
             font-size:16px;
+
+            transition:0.3s;
+            outline:none;
+        }
+
+        input:focus,
+        select:focus{
+            border-color:#6366f1;
+            background:white;
+            box-shadow:0 0 15px rgba(99,102,241,0.2);
+        }
+
+        .full-width{
+            grid-column:1 / -1;
         }
 
         button{
             width:100%;
-            padding:12px;
+            padding:17px;
             border:none;
-            border-radius:8px;
-            background:#007bff;
-            color:white;
+            border-radius:15px;
             font-size:18px;
+            font-weight:600;
             cursor:pointer;
-            margin-top:10px;
+            transition:0.3s;
         }
 
-        button:hover{
-            background:#0056b3;
+        .predict-btn{
+            margin-top:10px;
+            background:linear-gradient(90deg,#4f46e5,#9333ea);
+            color:white;
+        }
+
+        .predict-btn:hover{
+            transform:translateY(-3px);
+            box-shadow:0 10px 25px rgba(99,102,241,0.4);
         }
 
         .reset-btn{
-            background:#dc3545;
+            margin-top:15px;
+            background:white;
+            border:2px solid #ef4444;
+            color:#ef4444;
         }
 
         .reset-btn:hover{
-            background:#a71d2a;
+            background:#ef4444;
+            color:white;
         }
 
         .prediction{
-            margin-top:25px;
+            margin-top:30px;
+            padding:25px;
             text-align:center;
-            font-size:24px;
-            color:green;
-            font-weight:bold;
+
+            border-radius:18px;
+
+            background:linear-gradient(
+                135deg,
+                rgba(34,197,94,0.12),
+                rgba(34,197,94,0.06)
+            );
+
+            border:2px solid rgba(34,197,94,0.2);
+        }
+
+        .prediction h2{
+            color:#16a34a;
+            margin-bottom:10px;
+            font-size:22px;
+        }
+
+        .prediction p{
+            font-size:38px;
+            font-weight:700;
+            color:#15803d;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1100px){
+
+            .main-container{
+                flex-direction:column;
+            }
+
+            .right-panel{
+                width:100%;
+            }
+
+            .left-panel{
+                padding:40px;
+            }
+
+            .left-panel h1{
+                font-size:45px;
+            }
+
+            .feature-box{
+                width:100%;
+            }
+        }
+
+        @media(max-width:700px){
+
+            .input-grid{
+                grid-template-columns:1fr;
+            }
+
+            .container{
+                padding:30px;
+            }
+
+            .left-panel h1{
+                font-size:38px;
+            }
+
+            h1{
+                font-size:30px;
+            }
         }
 
     </style>
@@ -85,70 +349,220 @@
 
 <body>
 
-    <div class="container">
+    <div class="main-container">
 
-        <h1>Mumbai House Price Predictor</h1>
+        <!-- LEFT SIDE -->
 
-        <form action="/" method="POST">
+        <div class="left-panel">
 
-            <label>Area (sq ft)</label>
+            <h1>
+                Mumbai House <br>
+                <span>Price Predictor</span>
+            </h1>
 
-            <input
-                type="number"
-                name="area"
-                value="{{ area if area else '' }}"
-                required
-            >
+            <p>
+                Get smart property price predictions using AI-powered analytics,
+                locality trends, and modern machine learning models.
+            </p>
 
-            <label>BHK</label>
+            <div class="feature-box">
 
-            <input
-                type="number"
-                name="bhk"
-                value="{{ bhk if bhk else '' }}"
-                required
-            >
+                <div class="feature-icon">
+                    <i class="fa-solid fa-house"></i>
+                </div>
 
-            <label>Bathrooms</label>
+                <div class="feature-text">
+                    <h3>Smart Estimation</h3>
+                    <p>
+                        AI-based property valuation trained on Mumbai housing data.
+                    </p>
+                </div>
 
-            <input
-                type="number"
-                name="bathroom"
-                value="{{ bathroom if bathroom else '' }}"
-                required
-            >
+            </div>
 
-            <label>Locality</label>
+            <div class="feature-box">
 
-            <select name="locality">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
 
-                {% for loc in localities %}
+                <div class="feature-text">
+                    <h3>Local Insights</h3>
+                    <p>
+                        Area-based intelligent pricing for accurate market estimates.
+                    </p>
+                </div>
 
-                    <option
-                        value="{{ loc }}"
-                        {% if loc == selected_locality %}
-                            selected
-                        {% endif %}
-                    >
-                        {{ loc }}
-                    </option>
+            </div>
 
-                {% endfor %}
+            <div class="feature-box">
 
-            </select>
+                <div class="feature-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
 
-            <button type="submit">
-                Predict Price
-            </button>
+                <div class="feature-text">
+                    <h3>Reliable & Fast</h3>
+                    <p>
+                        Get instant predictions with optimized ML algorithms.
+                    </p>
+                </div>
 
-            <button type="reset" class="reset-btn">
-                Reset
-            </button>
+            </div>
 
-        </form>
+        </div>
 
-        <div class="prediction">
-            {{ prediction_text }}
+        <!-- RIGHT SIDE -->
+
+        <div class="right-panel">
+
+            <div class="container">
+
+                <div class="top-icon">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+
+                <h1>Predict Property Price</h1>
+
+                <p class="subtitle">
+                    Fill the details below to estimate house value
+                </p>
+
+                <form action="/" method="POST">
+
+                    <div class="input-grid">
+
+                        <!-- AREA -->
+
+                        <div class="input-group">
+
+                            <label>Area (sq ft)</label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-ruler-combined"></i>
+
+                                <input
+                                    type="number"
+                                    name="area"
+                                    value="{{ area if area else '' }}"
+                                    placeholder="Enter area"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <!-- BHK -->
+
+                        <div class="input-group">
+
+                            <label>BHK</label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-bed"></i>
+
+                                <input
+                                    type="number"
+                                    name="bhk"
+                                    value="{{ bhk if bhk else '' }}"
+                                    placeholder="Enter BHK"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <!-- BATHROOM -->
+
+                        <div class="input-group">
+
+                            <label>Bathrooms</label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-bath"></i>
+
+                                <input
+                                    type="number"
+                                    name="bathroom"
+                                    value="{{ bathroom if bathroom else '' }}"
+                                    placeholder="Enter bathrooms"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <!-- LOCALITY -->
+
+                        <div class="input-group">
+
+                            <label>Locality</label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                <select name="locality">
+
+                                    {% for loc in localities %}
+
+                                        <option
+                                            value="{{ loc }}"
+                                            {% if loc == selected_locality %}
+                                                selected
+                                            {% endif %}
+                                        >
+                                            {{ loc }}
+                                        </option>
+
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="predict-btn">
+
+                        <i class="fa-solid fa-chart-line"></i>
+                        Predict Price
+
+                    </button>
+
+                    <button type="reset" class="reset-btn">
+
+                        <i class="fa-solid fa-rotate"></i>
+                        Reset
+
+                    </button>
+
+                </form>
+
+                <!-- Prediction -->
+
+                {% if prediction_text %}
+
+                <div class="prediction">
+
+                    <h2>Estimated Price</h2>
+
+                    <p>{{ prediction_text }}</p>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
         </div>
 
     </div>
