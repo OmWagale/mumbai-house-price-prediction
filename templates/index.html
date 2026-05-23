@@ -8,6 +8,9 @@
 
     <title>Mumbai House Price Predictor</title>
 
+    <!-- CSS File -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -15,343 +18,13 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-    <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:'Poppins', sans-serif;
-        }
-
-        body{
-            min-height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-
-            background:
-            linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
-            url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1920&auto=format&fit=crop');
-
-            background-size:cover;
-            background-position:center;
-            padding:30px;
-        }
-
-        .main-container{
-            width:95%;
-            max-width:1400px;
-            display:flex;
-            border-radius:30px;
-            overflow:hidden;
-            backdrop-filter:blur(10px);
-            box-shadow:0 20px 50px rgba(0,0,0,0.2);
-        }
-
-        /* LEFT SECTION */
-
-        .left-panel{
-            flex:1;
-            padding:70px;
-            background:linear-gradient(
-                135deg,
-                rgba(255,255,255,0.45),
-                rgba(255,255,255,0.15)
-            );
-
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-        }
-
-        .left-panel h1{
-            font-size:65px;
-            line-height:1.1;
-            color:#111827;
-            margin-bottom:20px;
-        }
-
-        .left-panel h1 span{
-            background:linear-gradient(90deg,#4f46e5,#9333ea);
-            -webkit-background-clip:text;
-            -webkit-text-fill-color:transparent;
-        }
-
-        .left-panel p{
-            font-size:20px;
-            color:#374151;
-            line-height:1.8;
-            margin-bottom:40px;
-            max-width:600px;
-        }
-
-        .feature-box{
-            width:420px;
-            background:rgba(255,255,255,0.5);
-            padding:20px;
-            border-radius:20px;
-            display:flex;
-            align-items:center;
-            gap:18px;
-            margin-bottom:20px;
-            transition:0.3s;
-        }
-
-        .feature-box:hover{
-            transform:translateX(10px);
-            background:white;
-        }
-
-        .feature-icon{
-            width:60px;
-            height:60px;
-            border-radius:50%;
-            background:linear-gradient(135deg,#6366f1,#9333ea);
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            color:white;
-            font-size:22px;
-        }
-
-        .feature-text h3{
-            color:#111827;
-            margin-bottom:5px;
-        }
-
-        .feature-text p{
-            margin:0;
-            font-size:14px;
-            color:#4b5563;
-            line-height:1.6;
-        }
-
-        /* RIGHT PANEL */
-
-        .right-panel{
-            width:48%;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            padding:40px;
-        }
-
-        .container{
-            width:100%;
-            max-width:650px;
-
-            background:rgba(255,255,255,0.78);
-            backdrop-filter:blur(15px);
-
-            padding:50px;
-            border-radius:30px;
-
-            box-shadow:0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .top-icon{
-            width:90px;
-            height:90px;
-            border-radius:50%;
-            margin:auto;
-            margin-bottom:25px;
-
-            background:linear-gradient(135deg,#6366f1,#9333ea);
-
-            display:flex;
-            justify-content:center;
-            align-items:center;
-
-            color:white;
-            font-size:35px;
-
-            box-shadow:0 10px 25px rgba(99,102,241,0.4);
-        }
-
-        h1{
-            text-align:center;
-            color:#111827;
-            margin-bottom:10px;
-            font-size:40px;
-        }
-
-        .subtitle{
-            text-align:center;
-            color:#6b7280;
-            margin-bottom:35px;
-        }
-
-        .input-grid{
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:20px;
-        }
-
-        .input-group{
-            margin-bottom:20px;
-        }
-
-        label{
-            display:block;
-            margin-bottom:10px;
-            font-weight:600;
-            color:#111827;
-        }
-
-        .input-wrapper{
-            position:relative;
-        }
-
-        .input-wrapper i{
-            position:absolute;
-            left:18px;
-            top:50%;
-            transform:translateY(-50%);
-            color:#6366f1;
-            font-size:18px;
-        }
-
-        input, select{
-            width:100%;
-            padding:16px 16px 16px 50px;
-
-            border-radius:14px;
-            border:2px solid transparent;
-
-            background:#f9fafb;
-            font-size:16px;
-
-            transition:0.3s;
-            outline:none;
-        }
-
-        input:focus,
-        select:focus{
-            border-color:#6366f1;
-            background:white;
-            box-shadow:0 0 15px rgba(99,102,241,0.2);
-        }
-
-        .full-width{
-            grid-column:1 / -1;
-        }
-
-        button{
-            width:100%;
-            padding:17px;
-            border:none;
-            border-radius:15px;
-            font-size:18px;
-            font-weight:600;
-            cursor:pointer;
-            transition:0.3s;
-        }
-
-        .predict-btn{
-            margin-top:10px;
-            background:linear-gradient(90deg,#4f46e5,#9333ea);
-            color:white;
-        }
-
-        .predict-btn:hover{
-            transform:translateY(-3px);
-            box-shadow:0 10px 25px rgba(99,102,241,0.4);
-        }
-
-        .reset-btn{
-            margin-top:15px;
-            background:white;
-            border:2px solid #ef4444;
-            color:#ef4444;
-        }
-
-        .reset-btn:hover{
-            background:#ef4444;
-            color:white;
-        }
-
-        .prediction{
-            margin-top:30px;
-            padding:25px;
-            text-align:center;
-
-            border-radius:18px;
-
-            background:linear-gradient(
-                135deg,
-                rgba(34,197,94,0.12),
-                rgba(34,197,94,0.06)
-            );
-
-            border:2px solid rgba(34,197,94,0.2);
-        }
-
-        .prediction h2{
-            color:#16a34a;
-            margin-bottom:10px;
-            font-size:22px;
-        }
-
-        .prediction p{
-            font-size:38px;
-            font-weight:700;
-            color:#15803d;
-        }
-
-        /* RESPONSIVE */
-
-        @media(max-width:1100px){
-
-            .main-container{
-                flex-direction:column;
-            }
-
-            .right-panel{
-                width:100%;
-            }
-
-            .left-panel{
-                padding:40px;
-            }
-
-            .left-panel h1{
-                font-size:45px;
-            }
-
-            .feature-box{
-                width:100%;
-            }
-        }
-
-        @media(max-width:700px){
-
-            .input-grid{
-                grid-template-columns:1fr;
-            }
-
-            .container{
-                padding:30px;
-            }
-
-            .left-panel h1{
-                font-size:38px;
-            }
-
-            h1{
-                font-size:30px;
-            }
-        }
-
-    </style>
-
 </head>
 
 <body>
 
     <div class="main-container">
 
-        <!-- LEFT SIDE -->
+        <!-- LEFT PANEL -->
 
         <div class="left-panel">
 
@@ -361,8 +34,8 @@
             </h1>
 
             <p>
-                Get smart property price predictions using AI-powered analytics,
-                locality trends, and modern machine learning models.
+                Get accurate property price predictions using AI-powered analytics,
+                locality trends, and modern machine learning algorithms.
             </p>
 
             <div class="feature-box">
@@ -374,7 +47,7 @@
                 <div class="feature-text">
                     <h3>Smart Estimation</h3>
                     <p>
-                        AI-based property valuation trained on Mumbai housing data.
+                        AI-powered house valuation trained on Mumbai property data.
                     </p>
                 </div>
 
@@ -389,7 +62,7 @@
                 <div class="feature-text">
                     <h3>Local Insights</h3>
                     <p>
-                        Area-based intelligent pricing for accurate market estimates.
+                        Intelligent locality-based pricing predictions for better accuracy.
                     </p>
                 </div>
 
@@ -404,7 +77,7 @@
                 <div class="feature-text">
                     <h3>Reliable & Fast</h3>
                     <p>
-                        Get instant predictions with optimized ML algorithms.
+                        Get instant predictions with optimized machine learning models.
                     </p>
                 </div>
 
@@ -412,7 +85,7 @@
 
         </div>
 
-        <!-- RIGHT SIDE -->
+        <!-- RIGHT PANEL -->
 
         <div class="right-panel">
 
@@ -425,10 +98,10 @@
                 <h1>Predict Property Price</h1>
 
                 <p class="subtitle">
-                    Fill the details below to estimate house value
+                    Fill the details below to estimate property value
                 </p>
 
-                <form action="/" method="POST">
+                <form action="/" method="POST" id="priceForm">
 
                     <div class="input-grid">
 
@@ -531,6 +204,8 @@
 
                     </div>
 
+                    <!-- BUTTONS -->
+
                     <button type="submit" class="predict-btn">
 
                         <i class="fa-solid fa-chart-line"></i>
@@ -538,7 +213,11 @@
 
                     </button>
 
-                    <button type="reset" class="reset-btn">
+                    <button
+                        type="button"
+                        class="reset-btn"
+                        onclick="resetForm()"
+                    >
 
                         <i class="fa-solid fa-rotate"></i>
                         Reset
@@ -547,11 +226,11 @@
 
                 </form>
 
-                <!-- Prediction -->
+                <!-- PREDICTION -->
 
                 {% if prediction_text %}
 
-                <div class="prediction">
+                <div class="prediction" id="predictionBox">
 
                     <h2>Estimated Price</h2>
 
@@ -566,6 +245,30 @@
         </div>
 
     </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function resetForm(){
+
+            // reset form
+            document.getElementById("priceForm").reset();
+
+            // clear all input fields
+            document.querySelectorAll("input").forEach(input => {
+                input.value = "";
+            });
+
+            // hide prediction box
+            let predictionBox = document.getElementById("predictionBox");
+
+            if(predictionBox){
+                predictionBox.style.display = "none";
+            }
+        }
+
+    </script>
 
 </body>
 
